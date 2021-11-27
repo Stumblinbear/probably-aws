@@ -51,40 +51,44 @@
     <div v-if="selected"
             class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div class="text-center">
-            <div class="box">
-                <h3 class="mb-4 text-2xl font-semibold tracking-wider">
+            <div class="grid gap-4 box">
+                <h2 class="text-2xl font-bold tracking-wider">
                     {{ selected == correct ? 'Correct!' : 'Wrong!' }}
-                </h3>
-                <div v-if="selected == correct">
-                    they looked the same, to me
-                </div>
-                <div v-else-if="correct == 'NEITHER'">
+                </h2>
+                
+                <div v-if="correct == 'NEITHER'">
                     neither of them were correct
                 </div>
                 <div v-else>
-                    the correct one was <b>{{ correct == 'LEFT' ? left.option : right.option }}</b>
-                    <div class="my-4" />
-                    <a class="text-blue-600 hover:text-blue-300"
-                        :href="'https://www.google.com/search?q=' + encodeURIComponent(correct == 'LEFT' ? left.option : right.option)"
-                        target="_blank">
-                        find out more
-                    </a>
+                    <div class="grid gap-3 p-4 bg-gray-100 rounded-lg">
+                        <h3 class="text-xl font-semibold">{{ correct == 'LEFT' ? left.option : right.option }}</h3>
+
+                        <p class="text-sm">According to Amazon (not us):</p>
+
+                        <div class="p-4 bg-gray-200 rounded-lg">
+                            <p class="text-sm">{{ awsnames.real[correct == 'LEFT' ? left.option : right.option].desc || 'no description yet' }}</p>
+                        </div>
+
+                        <a class="text-blue-600 hover:text-blue-300 text-xs"
+                            :href="'https://www.google.com/search?q=' + encodeURIComponent(correct == 'LEFT' ? left.option : right.option)"
+                            target="_blank">
+                            find out more (but why would you want to?)
+                        </a>
+                    </div>
                 </div>
-            </div>
 
-            <div class="my-4" />
-
-            <div v-if="num.correct + num.wrong < COUNT_TO_ANSWER"
-                    class="next" @click.stop="regen()">
-                <h3 class="text-lg font-semibold tracking-wider">
-                    {{ selected == correct ? 'keep going' : 'try again' }}
-                </h3>
-            </div>
-            <div v-else
-                    class="next" @click.stop="regen()">
-                <h3 class="text-lg font-semibold tracking-wider">
-                    {{ selected == correct ? 'i\'m finished' : 'i tried, i swear' }}
-                </h3>
+                <div v-if="num.correct + num.wrong < COUNT_TO_ANSWER"
+                        class="next" @click.stop="regen()">
+                    <h3 class="text-sm font-semibold text-white tracking-wider">
+                        {{ correct == 'NEITHER' ? 'try again' : exasperation[Math.floor(Math.random() * exasperation.length)] }}
+                    </h3>
+                </div>
+                <div v-else
+                        class="next" @click.stop="regen()">
+                    <h3 class="text-md font-semibold text-white tracking-wider">
+                        {{ selected == correct ? 'i\'m finished' : 'i tried, i swear' }}
+                    </h3>
+                </div>
             </div>
         </div>
     </div>
@@ -94,14 +98,14 @@
     import { ref, reactive } from 'vue';
 
     import awsnames from '/src/awsnames.js';
-    import gloating from '/src/gloating.json';
+    import { egging, exasperation } from '/src/gloating.json';
 
     const COUNT_TO_ANSWER = 12;
     
     const emit = defineEmits([ 'state', 'correct', 'wrong' ]);
 
-    let reals = Object.entries(awsnames.real).reduce((acc, [name, synonyms]) => {
-        if(synonyms.length > 0) {
+    let reals = Object.entries(awsnames.real).reduce((acc, [name, { fakes }]) => {
+        if(fakes.length > 0) {
             acc.push(name);
         }
 
@@ -113,8 +117,8 @@
 
     let bases = [ 'AWS', 'Amazon' ];
 
-    let fakes = [ ...Object.entries(awsnames.real).reduce((acc, [name, synonyms]) => {
-        return [ ...acc, ...synonyms ];
+    let fakes = [ ...Object.entries(awsnames.real).reduce((acc, [name, { fakes }]) => {
+        return [ ...acc, ...fakes ];
     }, []), ...awsnames.fakes];
 
     let colors = [
@@ -169,7 +173,7 @@
         selected.value = null;
 
         shuffle(colors, 'color');
-        shuffle(gloating, 'flavor');
+        shuffle(egging, 'flavor');
 
         let both = Math.random() < 0.25;
 
