@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
 
 export default defineConfig({
+  base: './',
   plugins: [
     vue(),
     Components({
