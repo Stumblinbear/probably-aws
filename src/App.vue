@@ -21,7 +21,7 @@
 
   let num = reactive({ correct: 0, wrong: 0 });
   
-  gtag('event', 'page_view', { 'page_location': state.value });
+  gtag('event', 'page_view', { 'page_location': state.value.toLowerCase() });
 
   function setNum({ correct, wrong }) {
     num.correct = correct;
