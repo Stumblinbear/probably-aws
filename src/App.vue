@@ -2,27 +2,39 @@
   <div class="bg-gray-800 h-screen text-gray-200">
     <state-start
       v-if="state == 'START'"
-      @state="state = $event" />
+      @state="setState" />
     <state-play
       v-else-if="state == 'PLAY'"
-      @correct="correct = $event"
-      @wrong="wrong = $event"
-      @state="state = $event" />
+      @num="setNum"
+      @state="setState" />
     <state-done
       v-else-if="state == 'DONE'"
-      :correct="correct"
-      :wrong="wrong"
-      @state="state = $event" />
+      :num="num"
+      @state="setState" />
   </div>
 </template>
 
 <script setup>
-  import { ref } from 'vue';
+  import { ref, reactive } from 'vue';
 
   let state = ref('START');
 
-  let correct = ref(0);
-  let wrong = ref(0);
+  let num = reactive({ correct: 0, wrong: 0 });
+  
+  gtag('event', 'page_view', { 'page_location': state.value });
+
+  function setNum({ correct, wrong }) {
+    num.correct = correct;
+    num.wrong = wrong;
+
+    gtag('event', 'result', { 'correct': correct, 'wrong': wrong, 'total': correct + wrong });
+  }
+
+  function setState(id) {
+    state.value = id;
+
+    gtag('event', 'page_view', { 'page_location': id.toLowerCase() });
+  }
 </script>
 
 <style>

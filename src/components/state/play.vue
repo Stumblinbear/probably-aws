@@ -163,8 +163,7 @@
 
     function regen() {
         if(num.correct + num.wrong == COUNT_TO_ANSWER) {
-            emit('correct', num.correct);
-            emit('wrong', num.wrong);
+            emit('num', num);
             emit('state', 'DONE');
 
             return;
@@ -203,8 +202,12 @@
         selected.value = id;
 
         if(id == correct.value) {
+            gtag('event', 'choice', { 'value': 'CORRECT' });
+
             num.correct += 1;
         }else{
+            gtag('event', 'choice', { 'value': 'WRONG' });
+
             num.wrong += 1;
         }
     }

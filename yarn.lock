@@ -1242,6 +1242,11 @@ util-deprecate@^1.0.2:
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
 
+vite-plugin-radar@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/vite-plugin-radar/-/vite-plugin-radar-0.3.0.tgz#c77abfff22ee1a31e64ce05007e05d6f442ec4e6"
+  integrity sha512-RAYmNKubrK93GyfvM7JHsNu9lX8R0Ix4hA9SZIwZx2ClJZ1YcBSuO3YjJB6nZwipZti641GirKkM6iRt4+gtEQ==
+
 vite@^2.6.4:
   version "2.6.14"
   resolved "https://registry.yarnpkg.com/vite/-/vite-2.6.14.tgz#35c09a15e4df823410819a2a239ab11efb186271"
