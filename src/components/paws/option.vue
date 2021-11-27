@@ -8,7 +8,7 @@
             </h2>
             <div
                     class="mt-4 font-thin tracking-widest transition-opacity duration-300"
-                    :class="hovering ? 'opacity-100' : 'opacity-0'">
+                    :class="hovering ? 'opacity-100' : 'opacity-70 md:opacity-0'">
                 {{ props.flavor }}
             </div>
         </div>
