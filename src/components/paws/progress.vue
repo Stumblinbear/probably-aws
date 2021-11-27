@@ -1,7 +1,7 @@
 <template>
-    <div class="w-full h-2 bg-blue-200 rounded-full">
+    <div class="w-full h-2 bg-blue-200">
         <div
-            class="h-full text-center text-xs text-white bg-blue-600 rounded-full transition-all duration-300"
+            class="h-full text-center text-xs text-white bg-blue-600 transition-all duration-300"
             :style="{ width: (Math.max(0, Math.min(1, props.value)) * 100) + '%' }">
 
         </div>

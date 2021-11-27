@@ -2,13 +2,14 @@
     <div class="flex flex-col h-screen" @click="!selected ? null : null">
         <div class="flex flex-col md:flex-row h-full">
             <paws-option v-if="!selected"
-                class="bg-opacity-40 hover:bg-opacity-80"
+                class="bg-opacity-40 hover:bg-opacity-80 bg-gradient-to-t md:bg-gradient-to-l"
                 :class="left.color"
                 :flavor="left.flavor"
                 @click.stop="select('LEFT')">
                 {{ left.option }}
             </paws-option>
             <paws-option v-else
+                class="bg-gradient-to-t md:bg-gradient-to-l"
                 :class="left.color + ' ' + (correct == 'LEFT' ? 'bg-opacity-100' : 'bg-opacity-10 text-gray-400')"
                 :flavor="left.flavor">
                 {{ left.option }}
@@ -17,13 +18,14 @@
             <div class="h-1 md:h-full md:w-1 bg-white" />
 
             <paws-option v-if="!selected"
-                class="bg-opacity-40 hover:bg-opacity-80"
+                class="bg-opacity-40 hover:bg-opacity-80 bg-gradient-to-b md:bg-gradient-to-r"
                 :class="right.color"
                 :flavor="right.flavor"
                 @click.stop="select('RIGHT')">
                 {{ right.option }}
             </paws-option>
             <paws-option v-else
+                class="bg-gradient-to-b md:bg-gradient-to-r"
                 :class="right.color + ' ' + (correct == 'RIGHT' ? 'bg-opacity-100' : 'bg-opacity-10 text-gray-400')"
                 :flavor="right.flavor">
                 {{ right.option }}
@@ -49,7 +51,7 @@
     <div v-if="!!selected" class="absolute top-0 right-0 bottom-0 left-0 bg-gray-900 opacity-50" />
 
     <div v-if="selected"
-            class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full sm:w-96">
         <div class="text-center">
             <div class="grid gap-4 box">
                 <h2 class="text-2xl font-bold tracking-wider">
@@ -123,13 +125,13 @@
     }, []), ...awsnames.fakes];
 
     let colors = [
-        'bg-red-800',
-        'bg-yellow-800',
-        'bg-green-800',
-        'bg-blue-800',
-        'bg-indigo-800',
-        'bg-purple-800',
-        'bg-pink-800',
+        'from-red-800 to-red-900',
+        'from-yellow-800 to-yellow-900',
+        'from-green-800 to-green-900',
+        'from-blue-800 to-blue-900',
+        'from-indigo-800 to-indigo-900',
+        'from-purple-800 to-purple-900',
+        'from-pink-800 to-pink-900',
     ];
 
     let left = reactive({
