@@ -112,6 +112,7 @@
         return acc;
     }, []);
 
+    let visited = reactive([ ]);
     let correct = ref(null);
     let selected = ref(null);
 
@@ -157,6 +158,19 @@
         }
     }
 
+    function getReal() {
+        while(true) {
+            let real = reals[Math.floor(Math.random() * reals.length)];
+
+            if(!visited.includes(real)) {
+                visited.push(real);
+                return real;
+            }else{
+                console.log('skipping already visited:', real);
+            }
+        }
+    }
+
     function getFake() {
         return (bases[Math.floor(Math.random() * bases.length)]) + ' ' + fakes[Math.floor(Math.random() * fakes.length)];
     }
@@ -176,7 +190,7 @@
 
         let both = Math.random() < 0.25;
 
-        let real = both ? getFake() : reals[Math.floor(Math.random() * reals.length)];
+        let real = both ? getFake() : getReal();
         let fake = getFake();
 
         if(Math.random() < 0.5) {
