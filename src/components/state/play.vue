@@ -2,7 +2,7 @@
     <div class="flex flex-col h-screen" @click="!selected ? null : null">
         <div class="flex flex-col md:flex-row h-full">
             <paws-option v-if="!selected"
-                class="bg-opacity-40 hover:bg-opacity-80 bg-gradient-to-t md:bg-gradient-to-l"
+                class="bg-gradient-to-t md:bg-gradient-to-l"
                 :class="left.color"
                 :flavor="left.flavor"
                 @click.stop="select('LEFT')">
@@ -18,7 +18,7 @@
             <div class="h-1 md:h-full md:w-1 bg-white" />
 
             <paws-option v-if="!selected"
-                class="bg-opacity-40 hover:bg-opacity-80 bg-gradient-to-b md:bg-gradient-to-r"
+                class="bg-gradient-to-b md:bg-gradient-to-r"
                 :class="right.color"
                 :flavor="right.flavor"
                 @click.stop="select('RIGHT')">
@@ -125,13 +125,13 @@
     }, []), ...awsnames.fakes];
 
     let colors = [
-        'from-red-800 to-red-900',
-        'from-yellow-800 to-yellow-900',
-        'from-green-800 to-green-900',
-        'from-blue-800 to-blue-900',
-        'from-indigo-800 to-indigo-900',
-        'from-purple-800 to-purple-900',
-        'from-pink-800 to-pink-900',
+        'hover:from-red-800 from-red-900 to-red-900',
+        'hover:from-yellow-800 from-yellow-900 to-yellow-900',
+        'hover:from-green-800 from-green-900 to-green-900',
+        'hover:from-blue-800 from-blue-900 to-blue-900',
+        'hover:from-indigo-800 from-indigo-900 to-indigo-900',
+        'hover:from-purple-800 from-purple-900 to-purple-900',
+        'hover:from-pink-800 from-pink-900 to-pink-900',
     ];
 
     let left = reactive({
@@ -233,10 +233,10 @@
     .neither {
         @apply py-4 px-8
             text-lg
-            bg-red-700 bg-opacity-60
+            bg-red-900 hover:bg-red-700
             border-2 border-white
+            duration-100 transition-colors
             rounded-lg
-            duration-150 transition-all
             select-none;
     }
 
